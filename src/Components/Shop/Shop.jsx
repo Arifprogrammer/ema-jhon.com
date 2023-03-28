@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { addToDb, getShoppingCart } from "../../../resources/utilities/fakedb";
 import Card from "../Card/Card";
 import Cart from "../Cart/Cart";
 
@@ -7,6 +8,7 @@ const Shop = () => {
   const [carts, setCarts] = useState([]);
   const getSpecificCard = (obj) => {
     setCarts([...carts, obj]);
+    addToDb(obj.id);
   };
   useEffect(() => {
     const loadData = async () => {
@@ -15,6 +17,10 @@ const Shop = () => {
       setProducts(data);
     };
     loadData();
+  }, []);
+  useEffect(() => {
+    const getLocalStorage = getShoppingCart();
+    // console.log(getLocalStorage);
   }, []);
   return (
     <main className="grid grid-cols-[4fr_1fr]">
