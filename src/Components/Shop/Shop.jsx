@@ -20,8 +20,17 @@ const Shop = () => {
   }, []);
   useEffect(() => {
     const getLocalStorage = getShoppingCart();
-    // console.log(getLocalStorage);
-  }, []);
+    const newStoredProduct = [];
+    for (const id in getLocalStorage) {
+      const matchProduct = products.find((product) => product.id === id);
+      if (matchProduct) {
+        const quantity = getLocalStorage[id];
+        matchProduct.quantity = quantity;
+        newStoredProduct.push(matchProduct);
+      }
+    }
+    setCarts(newStoredProduct);
+  }, [products]);
   return (
     <main className="grid grid-cols-[4fr_1fr]">
       <div className="card-container flex justify-center row-span-full">

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const Card = ({ product, getSpecificCard }) => {
-  const { id, name, price, img, seller, ratings } = product;
+  const { name, price, img, seller, ratings } = product;
   return (
     <div className="w-96 relative text-gray-800">
       <div className="card bg-gray-400 shadow-slate-300 h-[39rem]">
