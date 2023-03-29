@@ -1,13 +1,14 @@
 import React from "react";
 
 const Cart = ({ carts }) => {
-  console.log(carts);
+  // console.log(carts);
   let total = 0;
   let totalShipping = 0;
   let quantity = 0;
   for (const cart of carts) {
-    total += cart.price;
-    totalShipping += cart.shipping;
+    // cart.quantity = cart.quantity || 1;
+    total += cart.price * cart.quantity;
+    totalShipping += cart.shipping * cart.quantity;
     quantity += cart.quantity;
   }
   const tax = (total * 7) / 100;
@@ -15,7 +16,7 @@ const Cart = ({ carts }) => {
     <div className="mt-24 h-80">
       <h1 className="text-2xl text-center font-semibold">Order Summary</h1>
       <div className="mt-12 text-xl space-y-2">
-        <p>Selected Items: {quantity > 0 ? quantity : carts.length}</p>
+        <p>Selected Items: {quantity}</p>
         <p>Total Price: ${total}</p>
         <p>Total Shipping Charge: ${totalShipping}</p>
         <p>Tax: ${tax.toFixed(2)}</p>

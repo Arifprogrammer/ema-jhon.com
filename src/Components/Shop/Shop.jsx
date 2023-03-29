@@ -6,8 +6,19 @@ import Cart from "../Cart/Cart";
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [carts, setCarts] = useState([]);
+
   const getSpecificCard = (obj) => {
-    setCarts([...carts, obj]);
+    let newCarts = [];
+    const matchProduct = carts.find((pd) => pd.id === obj.id);
+    if (!matchProduct) {
+      obj.quantity = 1;
+      newCarts = [...carts, obj];
+    } else {
+      matchProduct.quantity += 1;
+      const remainingProduct = carts.filter((pd) => pd.id !== obj.id);
+      newCarts = [...remainingProduct, matchProduct];
+    }
+    setCarts(newCarts);
     addToDb(obj.id);
   };
   useEffect(() => {
