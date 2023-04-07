@@ -44,7 +44,7 @@ const Shop = () => {
   }, [products]);
   return (
     <main className="grid grid-cols-[4fr_1fr]">
-      <div className="card-container flex justify-center row-span-full">
+      <div className="card-container flex justify-center">
         <div className="grid grid-cols-3 gap-16 my-16">
           {products.map((product) => (
             <Card
@@ -55,7 +55,7 @@ const Shop = () => {
           ))}
         </div>
       </div>
-      <aside className="px-8 bg-[#FFE0B3] text-gray-800 row-span-1 fixed right-0 left-[95rem] bottom-0 top-0 -z-10">
+      <aside className="px-8 bg-[#FFE0B3] text-gray-800 sticky top-0 h-screen">
         <Cart carts={carts}></Cart>
       </aside>
     </main>
