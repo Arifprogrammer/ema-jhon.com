@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { addToDb, getShoppingCart } from "../../../resources/utilities/fakedb";
+import {
+  addToDb,
+  deleteShoppingCart,
+  getShoppingCart,
+} from "../../../resources/utilities/fakedb";
 import Card from "../Card/Card";
 import Cart from "../Cart/Cart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [carts, setCarts] = useState([]);
+  const navigate = useNavigate();
 
   const getSpecificCard = (obj) => {
     let newCarts = [];
@@ -21,6 +29,12 @@ const Shop = () => {
     setCarts(newCarts);
     addToDb(obj.id);
   };
+
+  const deleteOrderedCart = () => {
+    setCarts([]);
+    deleteShoppingCart();
+  };
+
   useEffect(() => {
     const loadData = async () => {
       const res = await fetch("products.json");
@@ -56,7 +70,18 @@ const Shop = () => {
         </div>
       </div>
       <aside className="px-8 bg-[#FFE0B3] text-gray-800 sticky top-0 h-screen">
-        <Cart carts={carts}></Cart>
+        <Cart carts={carts} deleteOrderedCart={deleteOrderedCart}>
+          <button
+            className="w-full rounded-lg bg-orange-400 py-3 text-left px-4 flex justify-between items-center mt-4 text-white"
+            onClick={() => navigate("/order")}
+          >
+            <p>Review Order</p>
+            <FontAwesomeIcon
+              icon={faArrowAltCircleRight}
+              className="text-xl hover:text-gray-600"
+            />
+          </button>
+        </Cart>
       </aside>
     </main>
   );
