@@ -12,6 +12,7 @@ import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 const Order = () => {
   const savedCart = useLoaderData();
   const [carts, setCarts] = useState(savedCart);
+
   const deleteCart = (product) => {
     removeFromDb(product.id);
     const dltFromSavedCart = carts.filter((cart) => cart.id !== product.id);

@@ -22,7 +22,7 @@ const Card = ({ product, getSpecificCard }) => {
             onClick={() => getSpecificCard(product)}
           >
             Add to Cart
-            <FontAwesomeIcon icon={faShoppingCart} />
+            <FontAwesomeIcon icon={faShoppingCart} className="text-base" />
           </button>
         </div>
       </div>
