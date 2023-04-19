@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
   const provider = new GoogleAuthProvider();
 
   const googleSignIn = () => {
+    setLoading(true);
     return signInWithPopup(auth, provider);
   };
   const createUser = (email, password) => {
@@ -34,6 +35,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      console.log(currentUser, "provider");
       setLoading(false);
     });
     return () => {
@@ -45,7 +47,7 @@ const AuthProvider = ({ children }) => {
       .then(() => {
         toast.error("You've signed out successfully", {
           position: "top-center",
-          autoClose: 2000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

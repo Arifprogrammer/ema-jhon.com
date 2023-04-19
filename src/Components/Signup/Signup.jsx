@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { sendEmailVerification } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,7 +10,22 @@ import "react-toastify/dist/ReactToastify.css";
 const Signup = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(true);
-  const { createUser } = useContext(AuthContext);
+  const { createUser, googleSignIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const googleLogIn = () => {
+    googleSignIn()
+      .then((result) => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError(error.message);
+      });
+  };
+
   const handleSignup = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -30,7 +45,6 @@ const Signup = () => {
       setError("Password should be atleast six charatcer.");
       return;
     }
-
     createUser(email, password)
       .then((result) => {
         e.target.reset();
@@ -119,7 +133,10 @@ const Signup = () => {
               <span className="text-center text-black px-5">Or</span>
               <div className="bg-gray-700 h-[1px] w-full"></div>
             </div>
-            <button className="btn bg-sky-900 text-white hover:text-white font-semibold border-0">
+            <button
+              className="btn bg-sky-900 text-white hover:text-white font-semibold border-0"
+              onClick={googleLogIn}
+            >
               Signup with Google
             </button>
           </div>
