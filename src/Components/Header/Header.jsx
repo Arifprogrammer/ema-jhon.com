@@ -11,16 +11,22 @@ const Header = () => {
         <div className="img">
           <img src={logo} alt="" />
         </div>
-        <div className="flex items-center">
-          <Link to="/" className="px-5 py-1 rounded-lg hover:bg-slate-400">
+        <div className="flex items-center gap-2">
+          <Link
+            to="/"
+            className="px-5 py-1 rounded-lg hover:bg-slate-400 hover:text-gray-800"
+          >
             Shop
           </Link>
-          <Link to="/order" className="px-5 py-1 rounded-lg hover:bg-slate-400">
+          <Link
+            to="/order"
+            className="px-5 py-1 rounded-lg hover:bg-slate-400 hover:text-gray-800"
+          >
             Order Review
           </Link>
           <Link
             to="/inventory"
-            className="px-5 py-1 rounded-lg hover:bg-slate-400"
+            className="px-5 py-1 rounded-lg hover:bg-slate-400 hover:text-gray-800"
           >
             Manage Inventory
           </Link>
@@ -29,7 +35,7 @@ const Header = () => {
           ) : (
             <Link
               to="/signup"
-              className="px-5 py-1 rounded-lg hover:bg-slate-400"
+              className="px-5 py-1 rounded-lg hover:bg-slate-400 hover:text-gray-800"
             >
               Signup
             </Link>
@@ -39,16 +45,20 @@ const Header = () => {
           ) : (
             <Link
               to="/login"
-              className="px-5 py-1 rounded-lg hover:bg-slate-400"
+              className="px-5 py-1 rounded-lg hover:bg-slate-400 hover:text-gray-800"
             >
               Login
             </Link>
           )}
-          <div className="flex gap-3 items-center">
-            <p>{user?.emailVerified && user.email}</p>
+          <div className="flex gap-2 items-center">
+            {user?.emailVerified && (
+              <p className="bg-slate-400 px-2 py-1 rounded-md text-black">
+                {user.email}
+              </p>
+            )}
             {user && (
               <button
-                className="px-3 py-1 rounded-2xl hover:bg-slate-400"
+                className="px-3 py-1 rounded-2xl hover:bg-slate-400 hover:text-gray-800"
                 onClick={logOut}
               >
                 Signout

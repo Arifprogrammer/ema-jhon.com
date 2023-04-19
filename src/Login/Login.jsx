@@ -9,11 +9,21 @@ import { AuthContext } from "../Components/Provider/AuthProvider";
 const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(true);
-  const { loggedUser } = useContext(AuthContext);
+  const { loggedUser, googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
+  const googleLogIn = () => {
+    googleSignIn()
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setError(error.message);
+      });
+  };
   const handleSignin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -98,7 +108,10 @@ const Login = () => {
               <span className="text-center text-black px-5">Or</span>
               <div className="bg-gray-700 h-[1px] w-full"></div>
             </div>
-            <button className="btn bg-sky-900 text-white hover:text-white font-semibold border-0">
+            <button
+              className="btn bg-sky-900 text-white hover:text-white font-semibold border-0"
+              onClick={googleLogIn}
+            >
               Login with Google
             </button>
           </div>
