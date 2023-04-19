@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Cart from "../Cart/Cart";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import OrderedProduct from "../OrderedProduct/OrderedProduct";
 import {
   deleteShoppingCart,
@@ -12,6 +12,7 @@ import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 const Order = () => {
   const savedCart = useLoaderData();
   const [carts, setCarts] = useState(savedCart);
+  const navigate = useNavigate();
 
   const deleteCart = (product) => {
     removeFromDb(product.id);
@@ -34,7 +35,7 @@ const Order = () => {
           <Cart carts={carts} deleteOrderedCart={deleteOrderedCart}>
             <button
               className="w-full rounded-lg bg-orange-400 py-3 text-left px-4 flex justify-between items-center mt-4 text-white"
-              onClick={() => navigate("/order")}
+              onClick={() => navigate("/checkout")}
             >
               <p>Proceed Checkout</p>
               <FontAwesomeIcon

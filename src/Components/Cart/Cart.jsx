@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Cart = ({ carts, children, deleteOrderedCart }) => {
-  // console.log(carts);
   let total = 0;
   let totalShipping = 0;
   let quantity = 0;
